@@ -541,6 +541,7 @@ def api_admin_stats():
 
 
 # --------------------------------------------------------------------------
+init_db()
 if __name__ == "__main__":
     init_db()
     print("\n  🍽️  FoodieAI Restaurant running at http://127.0.0.1:5000")
