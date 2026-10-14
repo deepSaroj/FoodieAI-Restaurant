@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — FoodieAI Restaurant</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="logo" href="/">🍽️ Foodie<span>AI</span></a>
+    <nav class="nav-links"><a href="/">← Back to site</a></nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="logoutBtn" style="display:none">Logout</button>
+    </div>
+  </div>
+</header>
+
+<div class="admin-wrap">
+  <!-- Login -->
+  <div class="login-card" id="loginCard">
+    <h2>🔐 Admin Login</h2>
+    <label for="adminUser">Username</label>
+    <input id="adminUser" placeholder="admin" autocomplete="username" />
+    <label for="adminPass">Password</label>
+    <input id="adminPass" type="password" placeholder="••••••••" autocomplete="current-password" />
+    <div class="form-error" id="loginError"></div>
+    <div class="modal-actions"><button class="btn" id="loginBtn">Login</button></div>
+    <p class="mock-note">Default: admin / admin123 — change after first login.</p>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard" style="display:none">
+    <h1>📊 Admin Dashboard</h1>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="menu">🍽️ Menu</button>
+      <button class="tab-btn" data-tab="orders">📦 Orders</button>
+      <button class="tab-btn" data-tab="stats">📈 Stats</button>
+    </div>
+
+    <div class="tab-page active" id="tab-menu">
+      <div class="section-head">
+        <h2>Menu Items</h2>
+        <button class="btn" id="addItemBtn">+ Add Item</button>
+      </div>
+      <div class="table-wrap"><table class="data-table" id="menuTable"></table></div>
+    </div>
+
+    <div class="tab-page" id="tab-orders">
+      <div class="section-head"><h2>Customer Orders</h2>
+        <button class="btn btn-outline btn-small" id="refreshOrders">↻ Refresh</button>
+      </div>
+      <div class="table-wrap"><table class="data-table" id="ordersTable"></table></div>
+    </div>
+
+    <div class="tab-page" id="tab-stats">
+      <h2 style="margin-bottom:0.8rem">Sales Statistics</h2>
+      <div class="stat-cards" id="statCards"></div>
+      <h3>🏆 Top Selling Items</h3>
+      <div class="table-wrap"><table class="data-table" id="topTable"></table></div>
+    </div>
+  </div>
+</div>
+
+<!-- Add/Edit item modal -->
+<div class="modal" id="itemModal">
+  <div class="modal-card">
+    <h2 id="itemModalTitle">Add Menu Item</h2>
+    <div class="form-grid">
+      <div class="full"><label for="fName">Name</label><input id="fName" /></div>
+      <div><label for="fCategory">Category</label><select id="fCategory"></select></div>
+      <div><label for="fPrice">Price (₹)</label><input id="fPrice" type="number" min="0" step="1" /></div>
+      <div><label for="fRating">Rating (0–5)</label><input id="fRating" type="number" min="0" max="5" step="0.1" /></div>
+      <div><label for="fImage">Icon (emoji)</label><input id="fImage" placeholder="🍕" /></div>
+      <div class="full"><label for="fDesc">Description</label><input id="fDesc" /></div>
+      <div class="full checkbox-row">
+        <label><input type="checkbox" id="fVeg" checked /> Veg</label>
+        <label><input type="checkbox" id="fAvail" checked /> Available</label>
+      </div>
+    </div>
+    <div class="form-error" id="itemError"></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="itemCancel">Cancel</button>
+      <button class="btn" id="saveItemBtn">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="/static/js/admin.js"></script>
+</body>
+</html>

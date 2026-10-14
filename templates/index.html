@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FoodieAI Restaurant — Order Food with AI</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="logo" href="/">🍽️ Foodie<span>AI</span></a>
+    <nav class="nav-links">
+      <a href="#menu">Menu</a>
+      <a href="#track">Track Order</a>
+      <a href="/admin">Admin</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="themeToggle" title="Toggle dark mode">🌙</button>
+      <button class="icon-btn" id="cartBtn">🛒 Cart <span id="cartCount">0</span></button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Craving something delicious? 😋</h1>
+  <p>Chat with FoodieAI, explore the menu and order in seconds.</p>
+  <div class="search-bar">
+    <input id="searchInput" type="text" placeholder="Search dishes… e.g. pizza, biryani" autocomplete="off" />
+    <button class="btn btn-gold" id="searchBtn">Search</button>
+  </div>
+</section>
+
+<main class="container" id="menu">
+  <div class="chips" id="categoryChips"></div>
+  <label class="veg-toggle"><input type="checkbox" id="vegToggle" /> 🟢 Veg only</label>
+  <div class="menu-grid" id="menuGrid"></div>
+
+  <section class="track-section" id="track">
+    <h2>📦 Track Your Order</h2>
+    <p style="color:var(--muted)">Enter the order code you received after checkout.</p>
+    <div class="track-form">
+      <input id="trackCode" placeholder="e.g. FA-20261013-0001" />
+      <button class="btn" id="trackBtn">Track</button>
+    </div>
+    <div id="trackResult"></div>
+  </section>
+</main>
+
+<footer>
+  FoodieAI Restaurant • Open daily 11 AM – 11 PM • Demo project — payments are mocked, no real money moves.
+</footer>
+
+<!-- Cart drawer -->
+<div class="overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+  <div class="cart-head">
+    <h2>🛒 Your Cart</h2>
+    <button class="icon-btn" id="closeCart">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-foot">
+    <div class="totals-row"><span>Subtotal</span><span id="cartSubtotal">₹0</span></div>
+    <div class="totals-row"><span>GST (5%)</span><span id="cartTax">₹0</span></div>
+    <div class="totals-row grand"><span>Total</span><span id="cartTotal">₹0</span></div>
+    <button class="btn" id="checkoutBtn">Proceed to Checkout</button>
+  </div>
+</aside>
+
+<!-- Checkout modal -->
+<div class="modal" id="checkoutModal">
+  <div class="modal-card">
+    <h2>Checkout</h2>
+    <div class="order-summary" id="coSummary"></div>
+    <label for="coName">Full name</label>
+    <input id="coName" placeholder="e.g. Deepak Sharma" />
+    <label for="coPhone">Mobile number</label>
+    <input id="coPhone" placeholder="10-digit mobile number" inputmode="numeric" />
+    <label for="coAddress">Delivery address</label>
+    <textarea id="coAddress" rows="3" placeholder="House no, street, area, city"></textarea>
+    <div class="form-error" id="coError"></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="coCancel">Cancel</button>
+      <button class="btn" id="placeOrderBtn">Place Order • Mock Payment</button>
+    </div>
+    <p class="mock-note">Demo only — no real payment is processed and no card details are asked.</p>
+  </div>
+</div>
+
+<!-- Order success modal -->
+<div class="modal" id="successModal">
+  <div class="modal-card" style="text-align:center">
+    <h2>🎉 Order Placed!</h2>
+    <p>Your food is being prepared. Save your order code:</p>
+    <div class="success-code" id="orderCode">—</div>
+    <p id="successTotal" style="font-weight:700"></p>
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="successClose">Continue</button>
+      <button class="btn" id="trackFromSuccess">Track Order</button>
+    </div>
+  </div>
+</div>
+
+<!-- AI chatbot -->
+<button class="chat-fab" id="chatFab" title="Chat with FoodieAI">🤖</button>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <div><b>🤖 FoodieAI Assistant</b><small id="chatMode">online • rule-based mode</small></div>
+    <button class="chat-close" id="chatClose">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="quick-chips" id="quickChips"></div>
+  <div class="chat-input-row">
+    <input id="chatInput" placeholder="Ask about menu, budget, order…" autocomplete="off" />
+    <button class="btn" id="chatSend">Send</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="/static/js/script.js"></script>
+</body>
+</html>
